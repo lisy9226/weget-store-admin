@@ -12,9 +12,6 @@ import store from './store'
 import VueI18n from 'vue-i18n'
 import messages from './i18n'
 
-// import mock from './mock'
-
-
 Vue.config.productionTip = false
 
 Vue.use(Antd);
@@ -24,7 +21,6 @@ Vue.use(VueI18n)
 Vue.use(http);
 
 require('./mock/index.js');
-
 
 const i18n = new VueI18n({
   locale: 'ja',
