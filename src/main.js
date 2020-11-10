@@ -22,7 +22,6 @@ Vue.use(http);
 
 require('./mock/index.js');
 
-
 const i18n = new VueI18n({
   locale: 'ja',
   messages
