@@ -12,9 +12,6 @@ import store from './store'
 import VueI18n from 'vue-i18n'
 import messages from './i18n'
 
-// import mock from './mock'
-
-
 Vue.config.productionTip = false
 
 Vue.use(Antd);
