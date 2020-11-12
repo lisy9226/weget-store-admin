@@ -17,3 +17,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  @import './style/public.css';
+</style>
