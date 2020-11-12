@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../components/Login.vue'
+import Login from '../components/user/Login.vue'
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -22,18 +22,43 @@ const router = new VueRouter({
             path: '/login',
             // 异步引入组件，确保匹配了路由才加载组件，否则不利于优化
             component: Login,
-            meta:{
-                requireAuth:false
+            meta: {
+                requireAuth: false
             }
         },
         {
-            name: 'adminTop',
-            path: '/adminTop',
+            name: 'homePage',
+            path: '/homePage',
             // 异步引入组件，确保匹配了路由才加载组件，否则不利于优化
-            component: () => import('../components/admin_page/AdminTop.vue'),
-            meta:{
-                requireAuth:true
-            }
+            component: () => import('../components/layouts/HomePage.vue'),
+            meta: {
+                requireAuth: true
+            },
+            children: [{
+                name: 'topPage',
+                path: '/topPage',
+                components: {
+                    default: () => import('../components/pages/TopPage.vue')
+                }
+            },{
+                name: 'productsList',
+                path: '/productsList',
+                components: {
+                    default: () => import('../components/pages/product/manage/ProductsList.vue')
+                }
+            },{
+                name: 'productAdd',
+                path: '/productAdd',
+                components: {
+                    default: () => import('../components/pages/product/manage/ProductAdd.vue')
+                }
+            },{
+                name: 'productsAdd',
+                path: '/productsAdd',
+                components: {
+                    default: () => import('../components/pages/product/manage/ProductsAdd.vue')
+                }
+            }]
         },
 
     ]
@@ -42,7 +67,7 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
     const isLogin = store.getters.isLogin;
-    console.log('isLogin :'+isLogin)
+    console.log('isLogin :' + isLogin)
     if (to.path == '/login') {
         next();
     } else {

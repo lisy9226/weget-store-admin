@@ -6,7 +6,7 @@ import 'ant-design-vue/dist/antd.css';
 
 import router from '@/router/router.js'
 import axios from '@/plugins/axios.js'
-import { http } from './api/http';
+// import { http } from './api/http';
 import Vuex from 'vuex'
 import store from './store'
 import VueI18n from 'vue-i18n'
@@ -18,7 +18,7 @@ Vue.use(Antd);
 Vue.use(axios);
 Vue.use(Vuex)
 Vue.use(VueI18n)
-Vue.use(http);
+// Vue.use(http);
 
 require('./mock/index.js');
 
