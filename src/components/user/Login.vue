@@ -1,8 +1,8 @@
 <template>
-  <div class = "login-style">
+  <div class="login-style">
     <a-row type="flex" justify="center" align="middle">
       <a-col :span="6" class="a-col-style">
-        <a-divider>{{$t("labelMesseges.titleMsg")}}</a-divider>
+        <a-divider>{{ $t("labelMesseges.titleMsg") }}</a-divider>
         <a-alert
           type="error"
           show-icon
@@ -46,7 +46,6 @@
                       required: true,
                       message: $t('errorMessages.mailRequired'),
                     },
-                    
                   ],
                 },
               ]"
@@ -64,19 +63,13 @@
               v-decorator="[
                 'password',
                 {
-                  rules: [
-                    {validator: pwdCheck}
-                  ],
+                  rules: [{ validator: pwdCheck }],
                 },
               ]"
               type="password"
               :placeholder="$t('labelMesseges.password')"
             >
-              <a-icon
-                slot="prefix"
-                type="lock"
-                class="a-icon-style"
-              />
+              <a-icon slot="prefix" type="lock" class="a-icon-style" />
             </a-input>
           </a-form-item>
           <a-form-item>
@@ -149,6 +142,11 @@ export default {
         } else {
           // メールアドレスが正しい
           this.infoChoose = 0;
+          this.$axios.post("/pwdChange").then((response) => {
+            if(response.data === "200"){
+              console.log("メールは存在しません!")
+            }
+          });
         }
       } else {
         // メールアドレスを入力しない
@@ -169,16 +167,16 @@ export default {
     },
 
     // パスワードチェック
-    pwdCheck(rule,value, callback){
-      let regExp=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
-      if(value == undefined || value == ""){
-        callback(this.$t('errorMessages.pwdRequired'))
-      }else if(!regExp.test(value)){
-        callback(this.$t('errorMessages.pwdCheck'))
-      }else{
-        callback()
+    pwdCheck(rule, value, callback) {
+      let regExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+      if (value == undefined || value == "") {
+        callback(this.$t("errorMessages.pwdRequired"));
+      } else if (!regExp.test(value)) {
+        callback(this.$t("errorMessages.pwdCheck"));
+      } else {
+        callback();
       }
-    }
+    },
   },
 };
 </script>

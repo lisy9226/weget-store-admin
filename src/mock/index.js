@@ -11,7 +11,7 @@ const adminInfo = [
     password: '888'
   }
 ]
-Mock.mock('/topPage', 'post', adminInfo)
+Mock.mock('/pwdChange', 'post', "200")
 Mock.mock('/login', 'post', function (options) {
   let user = JSON.parse(options.body).userInfo
   let authInfo = null

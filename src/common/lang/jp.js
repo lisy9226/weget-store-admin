@@ -21,6 +21,7 @@ module.exports = {
         mailError: 'メールアドレスのフォーマットが正しくありません!',
         mailRequired: 'メールアドレスを入力してください!',
         mailSend: 'メールが送信された、ご確認ください!',
+        mailExist:'メールは存在しません!',
     },
 
 }
