@@ -1,6 +1,5 @@
 // 1.引入所需依赖: axios,Vue,store,router,工具函数 toast 等等...
 import axios from 'axios';
-import Vue from 'vue';
 
 // 创建 axios 实例
 const Axios = axios.create({
@@ -71,35 +70,35 @@ Axios.interceptors.response.use(
     }
 );
 
-/**
- * 请求失败后的错误统一处理
- * @param {Number} status 请求失败的状态码
- */
-const errorHandle = (status, tips) => {
-    // 状态码判断
-    switch (status) {
-        //     // 401: 未登录状态，跳转登录页
-        //     case 401:
-        //         toLogin();
-        //         break;
-        //     // 403 token过期
-        //     // 清除token并跳转登录页
-        //     case 403:
-        //         tip('登录过期，请重新登录');
-        //         localStorage.removeItem('token');
-        //         store.commit('loginSuccess', null);
-        //         setTimeout(() => {
-        //             toLogin();
-        //         }, 1000);
-        //         break;
-        // 404请求不存在
-        case 404:
-            console.log('请求的资源不存在');
-            break;
-        default:
-            console.log(tips);
-    }
-};
+// /**
+//  * 请求失败后的错误统一处理
+//  * @param {Number} status 请求失败的状态码
+//  */
+// const errorHandle = (status, tips) => {
+//     // 状态码判断
+//     switch (status) {
+//         //     // 401: 未登录状态，跳转登录页
+//         //     case 401:
+//         //         toLogin();
+//         //         break;
+//         //     // 403 token过期
+//         //     // 清除token并跳转登录页
+//         //     case 403:
+//         //         tip('登录过期，请重新登录');
+//         //         localStorage.removeItem('token');
+//         //         store.commit('loginSuccess', null);
+//         //         setTimeout(() => {
+//         //             toLogin();
+//         //         }, 1000);
+//         //         break;
+//         // 404请求不存在
+//         case 404:
+//             console.log('请求的资源不存在');
+//             break;
+//         default:
+//             console.log(tips);
+//     }
+// };
 
 // 实现插件, 暴露install方法, 可以给 vue 实例使用
 // 通过 this.$http.post 或者 get 去请求
