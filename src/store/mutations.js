@@ -1,6 +1,8 @@
 export default{
-    setUserInfo(state,parmater){
-        state.userInfo = parmater,
-        state.isLogin = true
+    setAuthInfo(state,authInfo){
+        let info = authInfo.authInfo
+        state.authInfo.userInfo = info.userInfo,
+        state.authInfo.isLogin = info.isLogin,
+        state.authInfo.token = info.token
     }
 }

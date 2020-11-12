@@ -18,6 +18,12 @@
 
 <script>
 export default {
+  created() {
+    this.$axios.post("/topPage").then((response) => {
+      console.log("************");
+      console.log(response.data);
+    });
+  },
   data() {
     return {
       text: "123",

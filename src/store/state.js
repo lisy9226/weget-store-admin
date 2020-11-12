@@ -1,5 +1,10 @@
-export default{
-    userInfo:"",
-    userPwd:"",
-    isLogin:false
+export default {
+    authInfo: {
+        userInfo: {
+            mail: "",
+            password: "",
+        },
+        isLogin: false,
+        token: "",
+    }
 }

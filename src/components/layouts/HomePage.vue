@@ -21,7 +21,6 @@
   </a-layout>
 </template>
 <script>
-
 import { mapGetters, mapState } from "vuex";
 import LeftMenu from "./LeftMenu.vue";
 import HeaderMenu from "./HeaderMenu.vue";

@@ -10,7 +10,6 @@ import axios from '@/plugins/axios.js'
 import Vuex from 'vuex'
 import store from './store'
 import VueI18n from 'vue-i18n'
-import messages from './i18n'
 
 Vue.config.productionTip = false
 
@@ -22,9 +21,14 @@ Vue.use(VueI18n)
 
 require('./mock/index.js');
 
+//言語選択
 const i18n = new VueI18n({
-  locale: 'ja',
-  messages
+  locale: 'jp',
+  messages: {
+    'jp': require('./common/lang/jp'),
+    'zh': require('./common/lang/cn'),
+    'en': require('./common/lang/en'),
+  }
 })
 
 Vue.prototype.$store = store

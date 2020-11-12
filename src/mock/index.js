@@ -3,25 +3,34 @@ const Mock = require('mockjs');
 
 const adminInfo = [
   {
-    userName: 'p.yangrongwei@tlzs.co.jp',
-    userPwd: '666'
+    mail: 'p.yangrongwei@tlzs.co.jp',
+    password: 'yang1031863260'
   },
   {
-    userName: 'admin@gmail.com',
-    userPwd: '888'
+    mail: 'admin@gmail.com',
+    password: '888'
   }
 ]
-
+Mock.mock('/topPage', 'post', adminInfo)
 Mock.mock('/login', 'post', function (options) {
   let user = JSON.parse(options.body).userInfo
+  let authInfo = null
   let flg = false
   adminInfo.forEach(function (item) {
-    if (item.userName === user.userName && item.userPwd === user.userPwd) {
+    if (item.mail === user.mail && item.password === user.password) {
       flg = true
+      authInfo = {
+        userInfo: {
+          mail: user.mail,
+          password: user.password,
+        },
+        isLogin: true,
+        token: "token-1001-1002-33333",
+      }
     }
   })
   if (flg) {
-    return user
+    return authInfo
   } else {
     return null
   }

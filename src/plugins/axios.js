@@ -2,6 +2,7 @@
 
 // import Vue from 'vue';
 import axios from "axios";
+import store from '../store/index'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -18,6 +19,9 @@ const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
   function(config) {
+    if (store.getters.authInfo.token) { //判断token是否存在
+      config.headers.Authorization = store.getters.authInfo.token;  //将token设置成请求头
+    }
     // Do something before request is sent
     return config;
   },

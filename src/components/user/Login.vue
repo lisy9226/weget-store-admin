@@ -1,9 +1,30 @@
 <template>
-  <div>
+  <div class = "login-style">
     <a-row type="flex" justify="center" align="middle">
-      <a-col :span="6" style="margin: 0 auto">
-        <a-divider>WeGet－ログイン</a-divider>
-        <a-alert  type="error" show-icon message="メールまたはパスワードが間違っています" v-if='errorVisable' closable :after-close="onErrorVisable"/>
+      <a-col :span="6" class="a-col-style">
+        <a-divider>{{$t("labelMesseges.titleMsg")}}</a-divider>
+        <a-alert
+          type="error"
+          show-icon
+          :message="$t('errorMessages.loginError')"
+          v-if="errorVisable"
+          closable
+          :after-close="onErrorVisable"
+        />
+        <a-alert
+          type="info"
+          show-icon
+          :message="
+            this.infoChoose === 0
+              ? $t('infoMessages.mailSend')
+              : this.infoChoose === 1
+              ? $t('infoMessages.mailRequired')
+              : $t('infoMessages.mailError')
+          "
+          v-if="infoVisable"
+          closable
+          :after-close="onInfoVisable"
+        />
         <a-form
           id="components-form-demo-normal-login"
           :form="form"
@@ -14,21 +35,22 @@
           <a-form-item>
             <a-input
               v-decorator="[
-                'userName',
+                'mail',
                 {
                   rules: [
                     {
                       type: 'email',
-                      message: 'メールアドレスのフォーマットが正しくありません!',
+                      message: $t('errorMessages.mailError'),
                     },
                     {
                       required: true,
-                      message: 'メールアドレスを入力してください!',
+                      message: $t('errorMessages.mailRequired'),
                     },
+                    
                   ],
                 },
               ]"
-              placeholder="メールアドレス"
+              :placeholder="$t('labelMesseges.mail')"
             >
               <a-icon
                 slot="prefix"
@@ -43,31 +65,30 @@
                 'password',
                 {
                   rules: [
-                    {
-                      required: true,
-                      message: 'パスワードを入力してください!',
-                    },
+                    {validator: pwdCheck}
                   ],
                 },
               ]"
               type="password"
-              placeholder="パスワード"
+              :placeholder="$t('labelMesseges.password')"
             >
               <a-icon
                 slot="prefix"
                 type="lock"
-                style="color: rgba(0, 0, 0, 0.25)"
+                class="a-icon-style"
               />
             </a-input>
           </a-form-item>
           <a-form-item>
-            <a class="login-form-forgot" href=""> パスワードを忘れた場合 </a>
+            <a class="login-form-forgot" @click="changePwd">
+              {{ $t("labelMesseges.passwordForget") }}
+            </a>
             <a-button
               type="primary"
               html-type="submit"
               class="login-form-button"
             >
-              {{ $t("message.login") }}
+              {{ $t("labelMesseges.login") }}
             </a-button>
           </a-form-item>
         </a-form>
@@ -81,7 +102,9 @@ export default {
   data() {
     return {
       errorVisable: false,
-      userName: "",
+      infoVisable: false,
+      infoChoose: 0,
+      mail: "",
       password: "",
       form: this.$form.createForm(this, { name: "normal_login" }),
     };
@@ -95,47 +118,68 @@ export default {
           this.$axios
             .post("/login", {
               userInfo: {
-                userName: values.userName,
-                userPwd: values.password,
+                mail: values.mail,
+                password: values.password,
               },
             })
             .then((response) => {
-              console.log(response.data);
               if (response.data !== null) {
-                this.$store.commit("setUserInfo", {
-                  userInfo: {
-                    userName: values.userName,
-                    userPwd: values.password,
-                  },
+                this.$store.commit("setAuthInfo", {
+                  authInfo: response.data,
                 });
                 this.$router.push({
                   name: "homePage",
                 });
               } else {
-                this.errorVisable = true
-                // alert("请检查密码和账户");
+                this.errorVisable = true;
               }
             });
         }
       });
     },
 
-    onErrorVisable(){
-      this.errorVisable = false
-    },
     // パスワードをリセット
-    passwordReset() {},
+    changePwd() {
+      let mail = this.form.getFieldValue("mail");
+      let error = this.form.getFieldError("mail");
+
+      if (mail !== undefined && mail !== "") {
+        if (error !== undefined && error !== "") {
+          // メールアドレスのフォーマットが正しくありません
+          this.infoChoose = 2;
+        } else {
+          // メールアドレスが正しい
+          this.infoChoose = 0;
+        }
+      } else {
+        // メールアドレスを入力しない
+        this.infoChoose = 1;
+      }
+      // InfoAlertを表示
+      this.infoVisable = true;
+    },
+
+    // ErrorAlertを閉じる
+    onErrorVisable() {
+      this.errorVisable = false;
+    },
+
+    // InfoAlertを閉じる
+    onInfoVisable() {
+      this.infoVisable = false;
+    },
+
+    // パスワードチェック
+    pwdCheck(rule,value, callback){
+      let regExp=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+      if(value == undefined || value == ""){
+        callback(this.$t('errorMessages.pwdRequired'))
+      }else if(!regExp.test(value)){
+        callback(this.$t('errorMessages.pwdCheck'))
+      }else{
+        callback()
+      }
+    }
   },
 };
 </script>
-<style>
-#components-form-demo-normal-login .login-form {
-  max-width: 300px;
-}
-#components-form-demo-normal-login .login-form-forgot {
-  float: right;
-}
-#components-form-demo-normal-login .login-form-button {
-  width: 100%;
-}
-</style>
