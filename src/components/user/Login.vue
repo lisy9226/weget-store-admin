@@ -142,7 +142,6 @@ export default {
     changePwd() {
       let mail = this.form.getFieldValue("mail");
       let error = this.form.getFieldError("mail");
-
       if (mail !== undefined && mail !== "") {
         if (error !== undefined && error !== "") {
           // メールアドレスのフォーマットが正しくありません
