@@ -11,7 +11,22 @@ const adminInfo = [
     password: '888'
   }
 ]
-Mock.mock('/pwdChange', 'post', "200")
+Mock.mock('/pwdChange', 'post', function(options){
+  let flg = false
+  adminInfo.forEach(function (item) {
+    if (item.mail === options.body) {
+      flg = true
+    }
+  })
+
+  if (flg) {
+    return "200"
+  } else {
+    return null
+  }
+
+})
+
 Mock.mock('/login', 'post', function (options) {
   let user = JSON.parse(options.body).userInfo
   let authInfo = null

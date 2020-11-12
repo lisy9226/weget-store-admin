@@ -19,7 +19,9 @@
               ? $t('infoMessages.mailSend')
               : this.infoChoose === 1
               ? $t('infoMessages.mailRequired')
-              : $t('infoMessages.mailError')
+              : this.infoChoose === 2
+              ? $t('infoMessages.mailError')
+              : $t('infoMessages.mailExist')
           "
           v-if="infoVisable"
           closable
@@ -54,7 +56,7 @@
               <a-icon
                 slot="prefix"
                 type="user"
-                style="color: rgba(0, 0, 0, 0.25)"
+                class="a-icon-style"
               />
             </a-input>
           </a-form-item>
@@ -141,12 +143,15 @@ export default {
           this.infoChoose = 2;
         } else {
           // メールアドレスが正しい
-          this.infoChoose = 0;
-          this.$axios.post("/pwdChange").then((response) => {
-            if(response.data === "200"){
-              console.log("メールは存在しません!")
-            }
-          });
+          this.$axios
+            .post("/pwdChange", this.form.getFieldValue("mail"))
+            .then((response) => {
+              if (response.data !== "200") {
+                this.infoChoose = 3;
+              } else {
+                this.infoChoose = 0;
+              }
+            });
         }
       } else {
         // メールアドレスを入力しない
