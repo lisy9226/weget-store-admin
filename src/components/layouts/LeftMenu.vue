@@ -1,6 +1,6 @@
 <template>
   <a-layout-sider v-model="collapsed" collapsible>
-    <div class="logo" />
+    <div class="logo">WeGet出品者管理システム</div>
     <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
       <a-menu-item key="1" style="margin-top: 0" @click="toTopPage">
         <a-icon type="pie-chart" />
@@ -56,7 +56,7 @@ export default {
 <style>
 #components-layout-demo-side .logo {
   height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+  color: antiquewhite;
   margin: 16px;
 }
 </style>
