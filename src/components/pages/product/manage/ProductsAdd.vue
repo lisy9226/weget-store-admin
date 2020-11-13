@@ -1,9 +1,24 @@
 <template>
-    <div>商品一括登録</div>
+  <a-layout-content style="margin: 10px">
+    <div :style="{ padding: '10px', background: '#fff', minHeight: '620px' }">
+      <a-page-header title="WeGet" />
+      <a-divider style="margin: 0px" />
+    </div>
+  </a-layout-content>
 </template>
 
 <script>
 export default {
+  created() {
+
+  },
+  data() {
+    return {
+      
+    };
+  },
+  methods: {
     
-}
+  },
+};
 </script>

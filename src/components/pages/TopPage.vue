@@ -11,7 +11,7 @@
               :headStyle="{ 'font-weight': 'bold' }"
               hoverable
             >
-              <a-row v-if="item.title === '注文状況'">
+              <a-row v-if="item.title === $t('labelMesseges.order')">
                 <a-col
                   :span="6"
                   v-for="(itemOrder, index) in statusInfo[0].orderInfo"
@@ -45,12 +45,12 @@
               :headStyle="{ 'font-weight': 'bold' }"
               hoverable
               ><a-statistic
-                title="売上金額"
+                :title="$t('labelMesseges.sale')"
                 :value="item.sales"
                 :value-style="{ color: '#cf1322' }"
                 prefix="￥"
                 style="margin-right: 50px" />
-              <a-statistic title="売上件数" :value="item.salesVolume"
+              <a-statistic :title="$t('labelMesseges.saleNo')" :value="item.salesVolume"
             /></a-card>
           </a-list-item>
         </a-list>

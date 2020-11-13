@@ -5,8 +5,11 @@ module.exports = {
         password: 'パスワード',
         mail: 'メールアドレス',
         passwordForget: 'パスワードを忘れた場合',
-        titleMsg: '出品者管理システム'
-
+        titleMsg: '出品者管理システム',
+        // トップページ画面
+        sale:'売上金額',
+        saleNo:'売上件数',
+        order:'注文状況',
     },
     errorMessages: {
         // ログイン画面
