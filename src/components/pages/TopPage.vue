@@ -1,9 +1,10 @@
 <template>
   <a-layout-content style="margin: 10px">
-    <div :style="{ padding: '10px', background: '#fff', minHeight: '620px' }">
+    <div class="content-style">
       <a-page-header title="WeGet" />
-      <a-divider style="margin: 0px" />
-      <a-row style="margin: 10px 5%" align="middle">
+      <a-divider class="a-divider-style" />
+      <!-- 出荷状況・注文状況 -->
+      <a-row class="a-row-style" align="middle">
         <a-list :grid="{ gutter: 16, column: 2 }" :data-source="statusInfo">
           <a-list-item slot="renderItem" slot-scope="item">
             <a-card
@@ -11,6 +12,7 @@
               :headStyle="{ 'font-weight': 'bold' }"
               hoverable
             >
+              <!-- 注文状況 -->
               <a-row v-if="item.title === $t('labelMesseges.order')">
                 <a-col
                   :span="6"
@@ -24,6 +26,7 @@
                   />
                 </a-col>
               </a-row>
+              <!-- 出荷状況 -->
               <a-row v-else>
                 <a-col
                   :span="6"
@@ -37,7 +40,8 @@
           </a-list-item>
         </a-list>
       </a-row>
-      <a-row style="margin: 10px 5%" align="middle">
+      <!-- 売上情報 -->
+      <a-row style="a-row-style" align="middle">
         <a-list :grid="{ gutter: 16, column: 4 }" :data-source="saleInfo">
           <a-list-item slot="renderItem" slot-scope="item">
             <a-card
@@ -50,7 +54,9 @@
                 :value-style="{ color: '#cf1322' }"
                 prefix="￥"
                 style="margin-right: 50px" />
-              <a-statistic :title="$t('labelMesseges.saleNo')" :value="item.salesVolume"
+              <a-statistic
+                :title="$t('labelMesseges.saleNo')"
+                :value="item.salesVolume"
             /></a-card>
           </a-list-item>
         </a-list>
@@ -60,6 +66,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   created() {
     // 売上情報を取得
@@ -68,6 +75,9 @@ export default {
     this.getOrderInfo();
     // 出荷状況を取得
     this.getShipInfo();
+  },
+  computed: {
+    ...mapState(["authInfo"]),
   },
   data() {
     return {
@@ -90,7 +100,9 @@ export default {
     // 売上情報を取得
     async getSaleInfo() {
       await this.$axios
-        .get("/topPage/sales")
+        .get("/sales/summary", {
+          distributorId: this.authInfo.userInfo.distributorId,
+        })
         .then((response) => {
           this.saleInfo = response.data;
         })
@@ -102,9 +114,10 @@ export default {
     // 注文状況を取得
     async getOrderInfo() {
       await this.$axios
-        .get("/topPage/order")
+        .get("/order/summary", {
+          distributorId: this.authInfo.userInfo.distributorId,
+        })
         .then((response) => {
-          console.log(response.data);
           this.statusInfo[0].orderInfo = response.data;
         })
         .catch(function (error) {
@@ -115,7 +128,9 @@ export default {
     // 出荷状況を取得
     async getShipInfo() {
       await this.$axios
-        .get("/topPage/ship")
+        .get("/shipment/summary", {
+          distributorId: this.authInfo.userInfo.distributorId,
+        })
         .then((response) => {
           this.statusInfo[1].shipInfo = response.data;
         })

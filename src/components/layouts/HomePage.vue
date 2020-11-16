@@ -21,7 +21,6 @@
   </a-layout>
 </template>
 <script>
-import { mapGetters, mapState } from "vuex";
 import LeftMenu from "./LeftMenu.vue";
 import HeaderMenu from "./HeaderMenu.vue";
 import FooterMenu from "./FooterMenu.vue";
@@ -38,10 +37,6 @@ export default {
     return {
       show: true,
     };
-  },
-  computed: {
-    ...mapState(["userInfo"]),
-    ...mapGetters(["isLogin"]),
   },
   methods: {
     replaceContent(){

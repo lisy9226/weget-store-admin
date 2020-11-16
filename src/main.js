@@ -11,12 +11,17 @@ import Vuex from 'vuex'
 import store from './store'
 import VueI18n from 'vue-i18n'
 
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
+
 Vue.config.productionTip = false
 
 Vue.use(Antd);
 Vue.use(axios);
-Vue.use(Vuex)
-Vue.use(VueI18n)
+Vue.use(Vuex);
+Vue.use(VueI18n);
+Vue.use(VXETable);
 // Vue.use(http);
 
 require('./mock/index.js');

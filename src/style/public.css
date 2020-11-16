@@ -6,8 +6,22 @@
     margin: 0 auto;
 }
 
+.a-row-style{
+    margin: 10px 5%;
+}
+
+.ant-layout .a-divider-style{
+    margin: 0px
+}
+
 .a-icon-style{
     color: rgba(0, 0, 0, 0.25)
+}
+
+.ant-layout .ant-layout-content .content-style{
+    padding: 10px;
+    background: #fff;
+    min-height: 620px;
 }
 
 #components-form-demo-normal-login .login-form {

@@ -80,12 +80,22 @@ Mock.mock('/login', 'post', function (options) {
     if (item.mail === user.mail && item.password === user.password) {
       flg = true
       authInfo = {
+        token:"token-0908-2132-3231",
         userInfo: {
-          mail: user.mail,
+          distributorId: "1001",
+          email: user.mail,
           password: user.password,
+          name: "楊さん",
+          adminFlg: true,
+          memo: "出品用",
+          status: "1",
+          createTime: "2020-11-16T01:22:59.914Z",
+          updateUser: "楊さん",
+          updateTime: "2020-11-16T01:22:59.915Z",
+          version: 0,
+          deleted: true
         },
         isLogin: true,
-        token: "token-1001-1002-33333",
       }
     }
   })
@@ -97,6 +107,6 @@ Mock.mock('/login', 'post', function (options) {
 });
 
 // トップページ画面
-Mock.mock('/topPage/sales', 'get', saleInfo);
-Mock.mock('/topPage/order', 'get', orderInfo);
-Mock.mock('/topPage/ship', 'get', shipInfo);
+Mock.mock('/sales/summary', 'get', saleInfo);
+Mock.mock('/order/summary', 'get', orderInfo);
+Mock.mock('/shipment/summary', 'get', shipInfo);

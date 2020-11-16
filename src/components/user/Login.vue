@@ -3,6 +3,7 @@
     <a-row type="flex" justify="center" align="middle">
       <a-col :span="6" class="a-col-style">
         <a-divider>{{ $t("labelMesseges.titleMsg") }}</a-divider>
+        <!-- ログイン失敗場合、エラー内容を表示 -->
         <a-alert
           type="error"
           show-icon
@@ -11,6 +12,7 @@
           closable
           :after-close="onErrorVisable"
         />
+        <!-- パスワードリンクが押下された場合、プロンプト情報を表示 -->
         <a-alert
           type="info"
           show-icon
@@ -27,6 +29,7 @@
           closable
           :after-close="onInfoVisable"
         />
+        <!-- ユーザー情報の入力フォム -->
         <a-form
           id="components-form-demo-normal-login"
           :form="form"
@@ -53,11 +56,7 @@
               ]"
               :placeholder="$t('labelMesseges.mail')"
             >
-              <a-icon
-                slot="prefix"
-                type="user"
-                class="a-icon-style"
-              />
+              <a-icon slot="prefix" type="user" class="a-icon-style" />
             </a-input>
           </a-form-item>
           <a-form-item>
@@ -110,6 +109,7 @@ export default {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
+          // 入力チェックが成功の場合、ログインを行う
           this.$axios
             .post("/login", {
               userInfo: {
@@ -118,16 +118,28 @@ export default {
               },
             })
             .then((response) => {
-              if (response.data !== null) {
+              // ログイン成功
+              if (response.status === 200) {
+                // AuthInfoに設定を行う
                 this.$store.commit("setAuthInfo", {
                   authInfo: response.data,
                 });
+
+                // ログイン状態に設定を行う
+                this.$store.commit("setLoginState", true);
+
+                // HomePageに遷移する
                 this.$router.push({
                   name: "homePage",
                 });
-              } else {
+              }
+            })
+            .catch(function (error) {
+              // ログイン失敗
+              if (error.response.status === 400) {
                 this.errorVisable = true;
               }
+              console.log(error);
             });
         }
       });
@@ -144,13 +156,19 @@ export default {
         } else {
           // メールアドレスが正しい
           this.$axios
-            .post("/pwdChange", this.form.getFieldValue("mail"))
+            .post("/password/reset", this.form.getFieldValue("mail"))
             .then((response) => {
-              if (response.data !== "200") {
-                this.infoChoose = 3;
-              } else {
+              // 入力したメールに送信を行う
+              if (response.status === 200) {
                 this.infoChoose = 0;
               }
+            })
+            .catch(function (error) {
+              // メールが存在しない
+              if (error.response.status === 400) {
+                this.infoChoose = 3;
+              }
+              console.log(error);
             });
         }
       } else {

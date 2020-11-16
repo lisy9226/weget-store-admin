@@ -38,6 +38,7 @@ _axios.interceptors.response.use(
     return response;
   },
   function (error) {
+    // console.log(error.response.status)
     switch (error.response.status) {
       case 400:
         error.message = '请求错误'

@@ -1,8 +1,8 @@
 <template>
   <a-layout-content style="margin: 10px">
-    <div :style="{ padding: '10px', background: '#fff', minHeight: '620px' }">
+    <div class="content-style">
       <a-page-header title="商品一覧" />
-      <a-divider style="margin: 0px" />
+      <a-divider class="a-divider-style" />
     </div>
   </a-layout-content>
 </template>

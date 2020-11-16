@@ -66,7 +66,7 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-    const isLogin = store.getters.authInfo.isLogin;
+    const isLogin = store.getters.isLogin;
     if (to.path == '/login') {
         next();
     } else {
