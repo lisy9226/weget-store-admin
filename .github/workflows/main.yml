@@ -1,0 +1,31 @@
+name: Upload Website
+
+on:
+ push:
+   branches:
+   - master
+
+jobs:
+ deploy:
+   runs-on: ubuntu-latest
+   steps:
+   - name: Checkout
+     uses: actions/checkout@master
+   - name: Sync s3
+     uses: jakejarvis/s3-sync-action@master
+     with:
+       args: --acl public-read --follow-symlinks --delete
+     env:
+       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+       AWS_ACCESS_KEY_ID: ${{ AKIAZKKU5262M7I3APEY }}
+       AWS_SECRET_ACCESS_KEY: ${{ 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 }}
+       AWS_REGION: 'ap-northeast-1'   # S3のリージョンを指定します
+       SOURCE_DIR: 'public'      # S3のデプロイ対象のディレクトリを指定します  
+   - name: Invalidate CloudFront
+     uses: chetan/invalidate-cloudfront-action@master
+     env:
+       DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+       PATHS: '/*'  # キャッシュクリア対象のパスを指定します。スペース区切りしながら複数ファイルを指定することも可能です。
+       AWS_REGION: 'ap-northeast-1' # S3のリージョンを指定すればOKのはず
+       AWS_ACCESS_KEY_ID: ${{ AKIAZKKU5262M7I3APEY }}
+       AWS_SECRET_ACCESS_KEY: ${{ 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 }}
