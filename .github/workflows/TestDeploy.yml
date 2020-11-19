@@ -12,8 +12,6 @@ jobs:
 
       - name: Public IP
         id: ip
-        
-
       - uses: actions/checkout@v2
       - name: Deploy
         env:
