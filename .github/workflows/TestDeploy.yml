@@ -2,20 +2,18 @@
 name: TestDeploy
 on:
   push:
-    branches: [helloworld]
-
-
-  pull_request:
-    branches: [helloworld]
-
+    branches: [master]
 
 jobs:
   deploy:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
+
       - name: Public IP
         id: ip
+        uses: haythem/public-ip@v1
+
       - uses: actions/checkout@v2
       - name: Deploy
         env:
@@ -50,6 +48,7 @@ jobs:
           git fetch --all &&
           git reset --hard origin/master &&
           git pull origin master
+          '
 
           # SSHのポートを閉じる
           aws --profile eyemovic-dev ec2 revoke-security-group-ingress --group-id ${SECURITY_GROUP} --prot
