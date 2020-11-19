@@ -20,8 +20,8 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           USER_NAME: ${{ secrets.USER_NAME }}
           HOST_NAME: ${{ secrets.HOST_NAME }}
-          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
-          SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SECURITY_GROUP: ${{ secrets.SECURITY_GROUP }}
         run: |
           # https://github.com/haythem/public-ip
