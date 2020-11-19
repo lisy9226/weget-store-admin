@@ -1,83 +1,54 @@
-name: Laravel
+
+name: TestDeploy
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-  laravel-tests:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Copy .env
-    - run: php -r "file_exists('.env') || copy('.env_backup', '.env');"
-    - name: Copy .htaccess
-    - run: php -r "file_exists('public/.htaccess') || copy('public/.htaccess.nossl', 'public/.htaccess');"
-    - name: npm install
-      run: npm install
-    - name: npm run
-      run: npm run prod
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-  
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      
-        aws-region: ap-northeast-1
-    
-    - name: Directory Permissions
-    - run: chmod -R 777 storage bootstrap/cache
-    - name: Create Database
-    
   deploy:
-    - if: github.ref == 'refs/heads/main'
-    - needs: [laravel-tests]
-    - runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
     steps:
 
       - name: Public IP
         id: ip
-        uses: ec2-user/public-ip@v1.2
- 
-      - name: Print Public IP
-        run: |
-          echo ${{ steps.ip.outputs.ipv4 }}
-          echo ${{ steps.ip.outputs.ipv6 }}
+        uses: haythem/public-ip@v1
+
       - uses: actions/checkout@v2
       - name: Deploy
-        
-        uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY 
-          
-        
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          HOST_NAME: ${{ secrets.HOST_NAME }}
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
           SECURITY_GROUP: ${{ secrets.SECURITY_GROUP }}
         run: |
           # https://github.com/haythem/public-ip
           IP_ADDRESS=`echo ${{ steps.ip.outputs.ipv4 }}`
+
           # AWS CLIをインストール
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
           sudo ./aws/install
           aws --version
+
           # AWS CLIに設定をする
-        - printf "${ACCESS_KEY}\n${SECRET_ACCESS_KEY}\nap-northeast-1\njson\n" | aws configure --profile eyemovic-dev
-        - aws configure get aws_access_key_id --profile eyemovic-dev
+          printf "${ACCESS_KEY}\n${SECRET_ACCESS_KEY}\nap-northeast-1\njson\n" | aws configure --profile eyemovic-dev
+          aws configure get aws_access_key_id --profile eyemovic-dev
+
           # SSHポートを開放する
           aws --profile eyemovic-dev ec2 authorize-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr "$IP_ADDRESS"/32
+
           # SSH接続して、git pullする
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} '
-          cd /usr/local/apache-tomcat-8.5.59/webapps &&
-          git pull
-          
+          cd /home/ec2-user/Gitプロジェクト &&
+          git checkout master &&
+          git fetch --all &&
+          git reset --hard origin/master &&
+          git pull origin master
+          '
+
           # SSHのポートを閉じる
-          aws --profile eyemovic-dev ec2 revoke-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr "$IP_ADDRESS"/32
-   
+          aws --profile eyemovic-dev ec2 revoke-security-group-ingress --group-id ${SECURITY_GROUP} --prot
