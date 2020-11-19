@@ -34,7 +34,7 @@ jobs:
           aws --version
 
           # AWS CLIに設定をする
-          printf "${ACCESS_KEY}\n${SECRET_ACCESS_KEY}\nap-northeast-1\njson\n" | aws configure --profile eyemovic-dev
+          printf "${AWS_ACCESS_KEY_ID}\n${AWS_SECRET_ACCESS_KEY}\nap-northeast-1\njson\n" | aws configure --profile eyemovic-dev
           aws configure get aws_access_key_id --profile eyemovic-dev
 
           # SSHポートを開放する
