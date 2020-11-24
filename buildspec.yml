@@ -1,20 +1,19 @@
-# buildspec.yml
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      java: corretto11
   pre_build:
     commands:
-      # install yarn
-      - sudo apt-get update && sudo apt-get install apt-transport-https
-      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-      - sudo apt-get update && sudo apt-get install yarn
-      - yarn --version
-      # install packages
-      - yarn
+      - echo Nothing to do in the pre_build phase...
   build:
     commands:
-      - yarn build
+      - echo Build started on `date`
+      - mvn install
   post_build:
     commands:
-      - aws s3 sync release s3://{toaindcodebuild-input} --delete --acl public-read 
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/messageUtil-1.0.jar
