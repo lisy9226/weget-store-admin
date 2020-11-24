@@ -17,4 +17,4 @@ phases:
       - yarn build
   post_build:
     commands:
-      - aws s3 sync release s3://{S3のバケット名} --delete --acl public-read 
+      - aws s3 sync release s3://{toaindcodebuild-input} --delete --acl public-read 
