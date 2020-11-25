@@ -9,6 +9,9 @@ phases:
     - yum install zip -y
     - npm install
     - npm install node-sass
+  build:
+    commands:
+      - npm --prefix server/ run build:compile
     
     
   
