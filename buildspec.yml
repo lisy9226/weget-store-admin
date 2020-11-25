@@ -15,7 +15,7 @@ phases:
 
 artifacts: 
       run: |
-        aws s3 sync ./weget-store-admin s3://${{ toaindcodebuild-input }}
+        aws s3 sync ./master s3://${{ toaindcodebuild-input }}
     
     
   
