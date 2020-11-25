@@ -7,6 +7,6 @@ phases:
     commands:
     - echo Installing all the dependencies
     - yum install zip -y
-    - npm --prefix server/ install 
+    - npm run build
   
   
