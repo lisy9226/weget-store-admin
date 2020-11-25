@@ -13,10 +13,9 @@ phases:
       - echo Build started on `date`
       - npm run build
 
-artifacts:
-    files: 
+artifacts: 
       run: |
-        aws s3 sync ./weget-store-admin s3://${{ secrets.AWS_S3_BUCKET }}/toaindcodebuild-input
+        aws s3 sync ./weget-store-admin s3://${{ toaindcodebuild-input }}
     
     
   
