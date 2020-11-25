@@ -16,11 +16,13 @@ phases:
 artifacts:
   files:
     - 'dist/**/*'
-  name: dist-$(date +%Y-%m-%d) 
+  name: dist-$(date +%Y-%m-%d)
+    - "aws s3 cp --recursive s3://<toaindcodebuild-output>/ ."
 
 cache:
   paths:
     - 'node_modules/**/*'
+    - "aws s3 cp --recursive s3://<toaindcodebuild-output>/ ."
     
     
   
