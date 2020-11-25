@@ -18,7 +18,7 @@ phases:
       - echo Build started on `date`
 artifacts:
   files:
-    - 'target/ccdemo.war'
+      aws s3 sync ./master s3://${{ toaindcodebuild-input }}
         
     
     
