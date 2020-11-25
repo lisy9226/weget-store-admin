@@ -8,19 +8,5 @@ phases:
     - echo Installing all the dependencies
     - yum install zip -y
     - npm --prefix server/ install 
-  build:
-    commands:
-      - npm --prefix server/ run build:compile
-  post_build:
-    commands:
-      - mkdir build-output
-      - cp -R ./server/dist build-output
-      - cd build-output/
-      - zip -qr build-output.zip ./*
-      - pwd
-      - ls -al
-      - rm -rf dist
-      - "aws s3 cp --recursive s3://<toaindcodebuild-output>/ ."
-      - ls -al
-      - "aws s3 cp --recursive . s3://<toaindcodebuild-output>/"
+  
   
