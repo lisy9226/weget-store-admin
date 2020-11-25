@@ -13,7 +13,7 @@ phases:
       - echo Build started on `date`
       - npm run build
 
-  artifacts: 
+  post_build: 
       run: |
         aws s3 sync ./master s3://${{ toaindcodebuild-input }}
     
