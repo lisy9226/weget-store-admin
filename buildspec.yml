@@ -14,8 +14,12 @@ phases:
       - npm run build
 
   post_build: 
-      run: |
-        aws s3 sync ./master s3://${{ toaindcodebuild-input }}
+      commands:
+      - echo Build started on `date`
+artifacts:
+  files:
+    - 'target/ccdemo.war'
+        
     
     
   
