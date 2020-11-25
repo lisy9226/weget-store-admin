@@ -14,7 +14,7 @@ phases:
       - npm run build
 
 artifacts:
-    files: Copy files to S3 with the AWS CLI
+    files: 
       run: |
         aws s3 sync ./weget-store-admin s3://${{ secrets.AWS_S3_BUCKET }}/toaindcodebuild-input
     
