@@ -7,6 +7,9 @@ phases:
     commands:
     - echo Installing all the dependencies
     - yum install zip -y
-    - npm run build
+    - npm install --global --production windows-build-tools
+    - npm install node-sass
+    - npm install
+    - npm run dev
   
   
