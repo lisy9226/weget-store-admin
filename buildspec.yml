@@ -7,8 +7,9 @@ phases:
     commands:
     - echo Installing all the dependencies
     - yum install zip -y
-    - npm install node-sass
     - npm install
+    - npm install node-sass
+    
     
   
   
