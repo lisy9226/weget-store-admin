@@ -1,17 +1,26 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
-      nodejs: 10  
+      nodejs: 12
   pre_build:
     commands:
-    - echo Installing all the dependencies
-    - yum install zip -y
-    - npm install
-    - npm install node-sass
+      - echo Install node_modules
+      - npm install
   build:
     commands:
-      - npm --prefix run build:compile
+      - echo Build started on `date`
+      - npm run build
+
+artifacts:
+  files:
+    - 'dist/**/*'
+  name: dist-$(date +%Y-%m-%d) 
+
+cache:
+  paths:
+    - 'node_modules/**/*'
     
     
   
