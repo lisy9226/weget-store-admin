@@ -16,7 +16,7 @@ phases:
   post_build: 
       commands:
       - echo Build started on `date`
-      - s3 sync ./ s3://[codebuildtestlisy] --delete --acl public-read
+      - s3 sync ./master s3://[codebuildtestlisy] --delete --acl public-read
 artifacts:
       files:
         - ./*/**/*
