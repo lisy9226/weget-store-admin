@@ -16,7 +16,8 @@ phases:
   post_build: 
       commands:
       - echo Build started on `date`
-      - s3 sync ./master s3://[codebuildtestlisy] 
+        aws s3 sync ./ s3://${{ secrets.AWS_S3_BUCKET }}/codebuild/ 
+      
 artifacts:
       files:
         - ./*/**/*
