@@ -16,10 +16,13 @@ phases:
   post_build: 
       commands:
       - echo Build started on `date`
-      - aws s3 sync ./ s3://${{ secrets.AWS_S3_BUCKET }}/codebuild/ 
+      
 artifacts:
-      files:
-        - ./*/**/*
+   run: |
+      aws s3 sync ./ s3://${{ secrets.AWS_S3_BUCKET }}/wegetlisy/
+      command: cp
+      source: ./
+      destination: s3://s3://codebuildtestlisy/weget.war/
   
         
     
