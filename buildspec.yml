@@ -19,7 +19,7 @@ phases:
 artifacts:
       command: cp
       source: ./
-      destination: s3://s3://codebuildtestlisy/weget.war/
+      destination: s3://s3://codebuildtestlisy/
   
         
     
