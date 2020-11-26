@@ -18,7 +18,7 @@ phases:
       - echo Build started on `date`
 artifacts:
   files:
-      aws s3 sync ./ s3://${{ secrets.AWS_S3_BUCKET }}/rest-app-lisy
+      aws s3 sync ./ s3://${{ secrets.AWS_S3_BUCKET }}/aaa
         
     
     
