@@ -17,7 +17,7 @@ phases:
       commands:
       - echo Build started on `date`
 artifacts:
-  files:
+   run: |
       aws s3 sync ./ s3://${{ secrets.AWS_S3_BUCKET }}/devbuilds/
         
     
