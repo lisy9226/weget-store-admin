@@ -5,7 +5,6 @@ name: HelloWorld
 on:
   push:
     branches: [ helloworld ]
-
 jobs:
   deploy:
     name: Upload to Amazon S3
