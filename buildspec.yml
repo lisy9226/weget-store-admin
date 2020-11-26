@@ -18,7 +18,7 @@ phases:
       - echo Build started on `date`
 artifacts:
   files:
-      aws s3 sync ./master s3://${{ secrets.AWS_S3_BUCKET }}
+      aws s3 sync ./master s3://${{ secret.AWS_S3_BUCKET }}
         
     
     
