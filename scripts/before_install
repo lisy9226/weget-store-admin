@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf /usr/local/tomcat8/webapps/CodeDeployDemo
+rm -rf /usr/local/tomcat8/webapps/Code*
