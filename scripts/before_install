@@ -1,2 +1,0 @@
-#!/bin/bash
-rm -rf /usr/local/tomcat8/webapps/Code*
