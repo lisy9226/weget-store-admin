@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /usr/share/tomcat/webapps/
+    destination: /var/www/html
 hooks:
   BeforeInstall:
     - location: scripts/before_install
