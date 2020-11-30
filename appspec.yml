@@ -9,7 +9,7 @@ hooks:
       timeout: 300
       runas: root
   AfterInstall:
-    - location: after_server
+    - location: after_install
       timeout: 300
       runas: root
   ApplicationStart:
