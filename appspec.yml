@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: s3://codebuildtestlisy/MyPath/WeGetDemo/*
-    destination: /var/www/html
+  - source: ./codebuildtestlisy/MyPath/WeGetDemo/*
+    destination: /var/www/html/
 hooks:
   BeforeInstall:
     - location: scripts/before_install
