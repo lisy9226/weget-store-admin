@@ -12,11 +12,11 @@ hooks:
     - location: scripts/after_install
       timeout: 300
       runas: root
-  ApplicationStart:
+  Application Start:
     - location: scripts/start_server
       timeout: 300
       runas: root
-  ApplicationStop:
+  Application Stop:
     - location: scripts/stop_server
       timeout: 300
       runas: root
