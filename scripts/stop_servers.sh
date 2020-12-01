@@ -1,6 +1,6 @@
 #!/bin/bash
-isExistApp = `pgrep java`
+isExistApp = `pgrep httpd`
 if [[ -n  $isExistApp ]]; then
-    sudo systemctl stop tomcat        
+    sudo systemctl stop httpd        
 fi
 
