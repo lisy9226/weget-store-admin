@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /
+  - source:  https://codebuildtestlisy.s3-ap-northeast-1.amazonaws.com/MyPath/WeGetdemo.war
     destination: /var/www/html/
 hooks:
   BeforeInstall:
