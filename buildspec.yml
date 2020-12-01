@@ -1,5 +1,4 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
@@ -12,10 +11,14 @@ phases:
     commands:
       - echo Build started on `date`
       - npm run build
-
   post_build: 
       commands:
       - echo Build started on `date`   
 artifacts:
       files:
-        - /
+        - ./*/**/*
+        - 'appspec.yml'
+        - 'scripts/before_install'
+        - 'scripts/after_install'
+        - 'scripts/start_server'
+        - 'scripts/stop_server'
