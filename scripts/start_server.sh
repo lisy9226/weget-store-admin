@@ -1,3 +1,3 @@
 #!/bin/bash
-systemctl start tomcat
+systemctl start httpd
 
