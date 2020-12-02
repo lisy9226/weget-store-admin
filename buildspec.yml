@@ -17,8 +17,4 @@ phases:
 artifacts:
       files:
         - ./*
-        - 'appspec.yml'
-        - 'scripts/before_install'
-        - 'scripts/after_install'
-        - 'scripts/start_server'
-        - 'scripts/stop_server'
+ 
