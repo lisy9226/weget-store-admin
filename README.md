@@ -25,10 +25,4 @@ npm run test
 npm run lint
 ```
 
-##########
-hello world
-hallllll
-##########
-hello world
-hallllll
-2222
+
