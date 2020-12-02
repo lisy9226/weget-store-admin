@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf /var/www/html/WeGetDemo*
+rm -rf /var/www/html/weget*
