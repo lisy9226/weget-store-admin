@@ -20,9 +20,12 @@ artifacts:
 artifacts:
       files:
       - 'appspec.yml'   
+      base-directory: /
 artifacts:
       files:
-      - 'scripts/**/*'
+      - '*/after_install.sh'
+      - '*/before_install.sh'
+      base-directory: scripts
   
       
       
