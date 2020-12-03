@@ -17,15 +17,16 @@ phases:
 artifacts:
       files:
       - 'dist/**/*'
-artifacts:
-      files:
-      - 'appspec.yml'   
-      base-directory: /
-artifacts:
-      files:
-      - '*/after_install.sh'
-      - '*/before_install.sh'
-      base-directory: scripts
+      secondary-artifacts:
+              artifact1:
+                files:
+                  - 'appspec.yml'   
+                base-directory: /
+              artifact2:
+                files:
+                  - '*/after_install.sh'
+                  - '*/before_install.sh'
+                 base-directory: scripts
   
       
       
