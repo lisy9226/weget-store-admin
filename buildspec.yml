@@ -16,9 +16,12 @@ phases:
       - echo Build started on `date`   
 artifacts:
       files:
-      - 'scripts/**/*'
-      files:
-      - 'dist/**/*'
+        artifact1:
+         files:
+          - 'scripts/**/*'
+        artifact2:
+          files:
+          - 'dist/**/*'
          
    
   
