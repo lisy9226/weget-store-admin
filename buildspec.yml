@@ -15,14 +15,21 @@ phases:
       commands:
       - echo Build started on `date`   
 artifacts:
-       files: 
-          - '/*'
+      files:
+        - './dist/**/*'
+        # - './.github/dev/appspec.yml'
+        # - './.github/dev/scripts/*'
+      discard-paths:  yes
+      secondary-artifacts:
         artifact1:
-         files:
-          - 'scripts/**/*'
+          files:
+            - './.github/dev/appspec.yml'
+          discard-paths:  yes
         artifact2:
           files:
-          - 'dist/**/*'
+            - './.github/dev/**'
+          discard-paths:  yes
+
          
    
   
