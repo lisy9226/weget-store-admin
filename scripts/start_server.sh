@@ -1,3 +1,3 @@
 #!/bin/bash
-systemctl start httpd
+sudo ystemctl start httpd
 
